@@ -1,13 +1,21 @@
 #include "main.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
-	if (argc == 0 || argv[0] == NULL)
-	{
-		fprintf(stderr, "Error: Missing program name.\n");
-		return EXIT_FAILURE;
-	}
+    char *line;
+    char **args;
+    int status;
 
-	simple_shell(argv[0]);
-	return 0;
+    do {
+        printf("> ");
+        line = read_line();  // Function to read input from stdin
+        args = parse_line(line);  // Function to parse the input into arguments
+        status = execute(args);  // Function to execute the parsed arguments
+
+        free(line);
+        free(args);
+    } while (status);
+
+    return 0;
 }
+

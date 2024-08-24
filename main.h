@@ -1,20 +1,27 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
+#include <unistd.h>
 #include <sys/wait.h>
 
-void simple_shell(char *prog_name);
-int exe_cmd(char **command_args, char *shell_name);
-char **tokenize_command(char *line_buffer);
-void release_args(char **args);
-void display_env(void);
-char **split_path_var(char *path_var);
-char *create_full_path(char *directory, char *command);
+#define TOK_BUFSIZE 64
+#define TOK_DELIM " \t\r\n\a"
 
+typedef struct {
+	char **builtin_str;
+	int (**builtin_func)(char **);
+	int num_builtins;
+} BuiltinCommands;
+
+char *read_line(void);
+char **parse_line(char *line);
+int execute(char **args);
+int lsh_cd(char **args);
+int lsh_help(char **args);
+int lsh_exit(char **args);
+BuiltinCommands init_builtins();
 
 #endif
