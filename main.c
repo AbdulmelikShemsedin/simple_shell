@@ -2,7 +2,7 @@
 
 /**
  * main - simple shell
- * 
+ *
  * Return: EXIT_SUCCESS if succeed
  */
 
