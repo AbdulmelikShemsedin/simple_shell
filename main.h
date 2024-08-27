@@ -10,10 +10,10 @@
 
 char *read_line(void);
 char **split_line(char *line);
-int execute(char **args);
+int execute(char **args, char **envp);
 int launch(char **args);
 int shell_exit(char **args);
-int shell_env(char **args);
+int shell_env(char **args, char **envp);
 
 int _strcmp(char *s1, char *s2);
 int _strlen(char *s);

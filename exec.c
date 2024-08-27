@@ -3,9 +3,10 @@
 /**
  * execute - commands execution
  * @args: ...
+ * @envp: ...
  * Return: the return of launched
  */
-int execute(char **args)
+int execute(char **args, char **envp)
 {
 if (args[0] == NULL)
 {
@@ -18,7 +19,7 @@ return (shell_exit(args));
 }
 if (_strcmp(args[0], "env") == 0)
 {
-return (shell_env(args));
+return (shell_env(args, envp));
 }
 
 return (launch(args));

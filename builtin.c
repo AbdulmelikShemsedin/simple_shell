@@ -13,18 +13,16 @@ return (0);
 /**
  * shell_env - the env command
  * @args: ...
+ * @envp: ...
  * Return: 1 if succeed
  */
-int shell_env(char **args __attribute__((unused)))
+int shell_env(char **args __attribute__((unused)), char **envp)
 {
-extern char **environ;
-char **env = environ;
-
-while (*env)
+while (*envp)
 {
-write(STDOUT_FILENO, *env, _strlen(*env));
+write(STDOUT_FILENO, *envp, _strlen(*envp));
 write(STDOUT_FILENO, "\n", 1);
-env++;
+envp++;
 }
 
 return (1);
