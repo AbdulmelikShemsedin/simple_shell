@@ -7,10 +7,10 @@ int main(void)
     int status;
 
     do {
-        printf("> ");
-        line = read_line();  // Function to read input from stdin
-        args = parse_line(line);  // Function to parse the input into arguments
-        status = execute(args);  // Function to execute the parsed arguments
+        printf("#shell: ");
+        line = read_line();
+        args = parse_line(line);
+        status = execute(args);
 
         free(line);
         free(args);

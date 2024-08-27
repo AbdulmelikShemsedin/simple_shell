@@ -24,10 +24,10 @@ return 1;
  * Return: 1 if succeed
  */
 
-int lsh_help(char **args)
+int lsh_help()
 {
 int i;
-BuiltinCommands commands = init_builtins(); // Re-initialize to access built-ins
+BuiltinCommands commands = init_builtins();
 
 printf("Simple Shell\n");
 printf("Type program names and arguments, and hit enter.\n");
@@ -46,7 +46,7 @@ return (1);
  * Return: 0 exit
  */
 
-int lsh_exit(char **args)
+int lsh_exit()
 {
 return 0;
 }

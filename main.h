@@ -20,8 +20,8 @@ char *read_line(void);
 char **parse_line(char *line);
 int execute(char **args);
 int lsh_cd(char **args);
-int lsh_help(char **args);
-int lsh_exit(char **args);
+int lsh_help();
+int lsh_exit();
 BuiltinCommands init_builtins();
 
 #endif
