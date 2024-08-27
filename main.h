@@ -3,25 +3,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
-
-#define TOK_BUFSIZE 64
-#define TOK_DELIM " \t\r\n\a"
-
-typedef struct {
-	char **builtin_str;
-	int (**builtin_func)(char **);
-	int num_builtins;
-} BuiltinCommands;
+#include <sys/types.h>
+#include <errno.h>
 
 char *read_line(void);
-char **parse_line(char *line);
+char **split_line(char *line);
 int execute(char **args);
-int lsh_cd(char **args);
-int lsh_help();
-int lsh_exit();
-BuiltinCommands init_builtins();
+int launch(char **args);
+int shell_exit(char **args);
+int shell_env(char **args);
+
+int _strcmp(char *s1, char *s2);
+int _strlen(char *s);
+void *_memset(void *s, int c, size_t n);
 
 #endif

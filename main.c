@@ -1,21 +1,25 @@
 #include "main.h"
 
+/**
+ * main - simple shell
+ * 
+ * Return: EXIT_SUCCESS if succeed
+ */
+
 int main(void)
 {
-    char *line;
-    char **args;
-    int status;
+char *line;
+char **args;
+int status;
 
-    do {
-        printf("#shell: ");
-        line = read_line();
-        args = parse_line(line);
-        status = execute(args);
+do {
+write(STDOUT_FILENO, "$ ", 2);
+line = read_line();
+args = split_line(line);
+status = execute(args);
 
-        free(line);
-        free(args);
-    } while (status);
-
-    return 0;
+free(line);
+free(args);
+} while (status);
+return (EXIT_SUCCESS);
 }
-
