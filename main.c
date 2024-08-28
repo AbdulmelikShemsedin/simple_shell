@@ -8,7 +8,8 @@
 */
 ssize_t prompt_user(char **buff, size_t *size)
 {
-_isatty();
+if (isatty(STDIN_FILENO))
+	print_string("#shell$ ");
 return (getline(buff, size, stdin));
 }
 
