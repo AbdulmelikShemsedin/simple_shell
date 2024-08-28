@@ -1,1 +1,2 @@
-First commit
+Simple shell using C
+Group work
