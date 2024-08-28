@@ -1,77 +1,37 @@
-#include "header.h"
-
+#include "shelldata.h"
+#include "function.h"
 /**
-* prompt_user - Displays prompt and handles EOF
-* @buff: buffer for input
-* @size: size of the buffer
-* Return: length of input or -1 if EOF
-*/
-ssize_t prompt_user(char **buff, size_t *size)
+ * main - The simple shell main program
+ * Description: This task/program runs a basic shell
+ *
+ * @ac: argument count
+ * @av: arguments vector
+ *
+ * Return: on success (0)
+ **/
+int main(int ac, char **av)
 {
-if (isatty(STDIN_FILENO))
-	print_string("#cisfun$ ");
-return (getline(buff, size, stdin));
-}
+	int status;
+	shelldata_t *mytype;
 
-/**
-* handle_command - Processes and executes user commands
-* @buff: input buffer
-*/
-void handle_command(char *buff)
-{
-char **args;
-char *path_value, *cmd_path;
-path_list *path_list_head = NULL;
-void (*builtin_func)(char **);
+	mytype = malloc(sizeof(shelldata_t));
+	if (mytype == NULL)
+	{
+		perror(av[0]);
+		exit(1);
+	}
 
-args = split_string(buff, " \n");
-if (!args || !args[0])
-{
-execute_command(args);
-return;
-}
+	mytype->pid = getpid();
+	mytype->code_stat = 0;
+	mytype->n_cmd = 0;
+	mytype->argc = ac;
+	mytype->argv = av;
+	mytype->it_mode = isatty(0) == 1;
+	begin(mytype);
 
-path_value = get_environment_variable("PATH");
-path_list_head = create_path_list(path_value);
-cmd_path = find_command_path(args[0], path_list_head);
-builtin_func = find_builtin_command(args);
+	status = mytype->code_stat;
 
-if (builtin_func)
-{
-free(buff);
-builtin_func(args);
-}
-else
-{
-if (cmd_path)
-{
-free(args[0]);
-args[0] = cmd_path;
-}
-execute_command(args);
-}
+	free(mytype);
 
-free_path_list(path_list_head);
-free_arguments(args);
-}
-
-/**
-* main - Entry point for the shell
-* Return: 0 on success
-*/
-int main(void)
-{
-ssize_t len;
-char *buff = NULL;
-size_t size = 0;
-
-signal(SIGINT, signal_handler);
-
-while ((len = prompt_user(&buff, &size)) != -1)
-{
-handle_command(buff);
-}
-
-handle_eof(len, buff);
-return (0);
+	return (status);
 }
